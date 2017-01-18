@@ -56,4 +56,14 @@ let ``if the ranks are equal, hearts beat diamonds`` () =
 
 [<Test>]
 let ``the player loses when they run out of cards`` () = 
-    Assert.Fail "TODO"
+    let hand1 = [(Heart, Value 2)]
+    let hand2 = [(Heart, Value 3)]
+    let winner = playGame(hand1, hand2)
+    test <@ winner = "player 2 wins" @>
+
+[<Test>]
+let ``the other player loses when they run out of cards`` () = 
+    let hand1 = [(Heart, Ace); (Spade, Value 4)]
+    let hand2 = [(Heart, Value 3)]
+    let winner = playGame(hand1, hand2)
+    test <@ winner = "player 1 wins" @>

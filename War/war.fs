@@ -29,7 +29,6 @@ let suitValue card =
     | Diamond -> 3
     | Club -> 2
     | Spade -> 1
-    | _ -> 0
     
 let value card =
     (suitValue card) * 4 + (rankValue card)
@@ -40,8 +39,11 @@ let playRound (card1 : Card, card2 : Card) =
     else
       card2
     
-    
-    //failwith "not implemented: winning card"
-
-let playGame (hand1 : Card list, hand2 : Card list) =
-    failwith "not implemented: game winner"
+let rec playGame (hand1 : Card list, hand2 : Card list) =
+    match (hand1, hand2) with
+    | [], _ -> "player 2 wins"
+    | _, [] -> "player 1 wins"
+    | (h1 :: t1), (h2 :: t2) -> 
+        match playRound(h1, h2) with
+        | win when win = h1 -> playGame(t1 @ [h1; h2], t2)
+        | _ -> playGame(t1, t2 @ [h1; h2])
