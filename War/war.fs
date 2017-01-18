@@ -43,7 +43,7 @@ let rec playGame (hand1 : Card list, hand2 : Card list) =
     match (hand1, hand2) with
     | [], _ -> "player 2 wins"
     | _, [] -> "player 1 wins"
-    | (h1 :: t1), (h2 :: t2) -> 
-        match playRound(h1, h2) with
-        | win when win = h1 -> playGame(t1 @ [h1; h2], t2)
-        | _ -> playGame(t1, t2 @ [h1; h2])
+    | (head1 :: tail1), (head2 :: tail2) -> 
+        match playRound(head1, head2) with
+        | win when win = head1 -> playGame(tail1 @ [head1; head2], tail2)
+        | _ -> playGame(tail1, tail2 @ [head1; head2])
